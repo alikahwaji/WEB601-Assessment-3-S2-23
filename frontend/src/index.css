@@ -16,10 +16,6 @@ h2 {
   padding: 0.5rem 0;
 }
 
-.rating span {
-  margin: 0.1rem;
-}
-
 /* carousel */
 .carousel-item-next,
 .carousel-item-prev,
@@ -53,6 +49,20 @@ h2 {
 }
 
 /* Style for the Rating component */
+#reviews {
+  margin: 0 0 50px 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  flex-direction: row;
+  padding: 0;
+}
+.control-pane {
+  width: 200px;
+  height: 100px;
+  padding: 0;
+  margin: 0;
+}
 #default-rating-control .rating-content {
   width: 240px;
   margin: 15px 0;
@@ -69,9 +79,18 @@ h2 {
   text-align: center;
 }
 #default-rating-control {
-  margin: 6% auto;
   max-width: 800px;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  padding: 0;
+  margin: 0;
+}
+.rating-content {
+  width: 440px;
+  margin-left: 0;
+  padding-left: 0;
+}
+#review-heading {
+  margin-top: 50px;
 }
