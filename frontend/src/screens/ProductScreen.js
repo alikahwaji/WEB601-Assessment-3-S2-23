@@ -41,7 +41,7 @@ const ProductScreen = ({ history, match }) => {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
-  }, [dispatch, match, successProductReview, history, userInfo, product._id])
+  }, [dispatch, match, successProductReview, history, userInfo, product.id])
 
   const addToCartHandler = () => {
     history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -152,7 +152,7 @@ const ProductScreen = ({ history, match }) => {
             <Col md={6}>
               <h2>Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant='flush'>
+              <ListGroup variant='flush' id='reviews'>
                 {product.reviews.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
@@ -161,6 +161,12 @@ const ProductScreen = ({ history, match }) => {
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
+              </ListGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h2>Write a Customer Review</h2>
                   {successProductReview && (
