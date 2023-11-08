@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { useEffect } from 'react';
 import { RatingComponent } from '@syncfusion/ej2-react-inputs';
 
 
 const Rating = ({ value, text }) => {
+
   return (
     <div className='control-pane'>
       <div id="default-rating-control">
