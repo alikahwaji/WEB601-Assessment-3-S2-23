@@ -1,19 +1,16 @@
+import {RatingComponent} from '@syncfusion/ej2-react-inputs';
 import * as React from 'react';
-import { RatingComponent } from '@syncfusion/ej2-react-inputs';
 
-
-const Rating = ({ value, text }) => {
-
-  return (
-    <div className='control-pane'>
-      <div id="default-rating-control">
-        <div className="rating-content">
-          <label>{text}</label><br />
-          <RatingComponent id='rating3' readOnly={true} value={value}></RatingComponent>
-        </div>
-      </div>
+const Rating =
+    ({value, text}) => {
+      return (<div className = 'control-pane'>
+              <div id = "default-rating-control">
+              <div className = "rating-content"><label>{text}</label><br />
+              <RatingComponent id = 'rating3' readOnly = {true} value = {value}>
+              </RatingComponent>
+        </div></div>
     </div>);
-}
+    }
 
 /*
 // This is the original code
