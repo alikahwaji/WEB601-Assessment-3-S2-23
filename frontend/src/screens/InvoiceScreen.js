@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
+import DataGrid from '../components/DataGrid'
 import {
   getOrderDetails,
 } from '../actions/orderActions'
@@ -45,7 +46,7 @@ const InvoiceScreen = ({ match, history }) => {
   }, [dispatch, orderId, order, history, userInfo])
 
 
-  
+
   return loading ? (
     <Loader />
   ) : error ? (
@@ -53,9 +54,7 @@ const InvoiceScreen = ({ match, history }) => {
   ) : (
     <>
       <h1>Order {order._id}</h1>
-
-
-
+      <DataGrid />
     </>
   )
 }

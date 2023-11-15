@@ -103,6 +103,10 @@ const OrderScreen = ({ match, history }) => {
                 onClick={() => {
                   window.location.href = `/invoice/${order._id}`;
                 }}
+                onMouseDown={e => {
+                  e.target.style.backgroundColor = '#007bff';
+                  e.target.style.borderColor = '#007bff';
+                }}
               >
                 View Invoice
               </Button>
