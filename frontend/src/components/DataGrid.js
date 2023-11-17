@@ -33,10 +33,16 @@ function DataGrid({order}) {
     }
     productData.push(tax);
 
+    // Add all quantities for each orderItem
+    let totalQuantity = 0;
+    for (let i = 0; i < orderItems.length; i++) {
+        totalQuantity += orderItems[i].qty;
+    }
+
     // Add total row
     let total = {
         'ProductName': 'Total',
-        'QuantityPerUnit': orderItems.length,
+        'QuantityPerUnit': totalQuantity,
         'UnitPrice': order.totalPrice+order.shippingPrice+order.taxPrice,
     }
     productData.push(total);
@@ -218,7 +224,7 @@ function DataGrid({order}) {
         <div>
           <GridComponent id="Grid" dataSource={productData} ref={grid => gridInstance = grid} toolbar={toolbarOptions} allowExcelExport={true} allowPdfExport={true} toolbarClick={toolbarClick.bind(this)} allowPaging={true} pageSettings={{ pageCount: 2, pageSize: 10 }}>
             <ColumnsDirective>
-              <ColumnDirective field='ProductName' headerText='Product Name' width='300'></ColumnDirective>
+              <ColumnDirective field='ProductName' headerText='Product Name' width='400'></ColumnDirective>
               <ColumnDirective field='QuantityPerUnit' headerText='Quantity Per Unit' width='200'></ColumnDirective>
               <ColumnDirective field='UnitPrice' headerText='Units Price' width='170' format='C2'></ColumnDirective>
             </ColumnsDirective>
