@@ -74,7 +74,7 @@ const OrderScreen = ({ match, history }) => {
         setSdkReady(true)
       }
     }
-  }, [dispatch, orderId, successPay, successDeliver, order])
+  }, [dispatch, orderId, successPay, successDeliver, order, history, userInfo])
 
   const successPaymentHandler = (paymentResult) => {
     console.log(paymentResult)
@@ -95,6 +95,23 @@ const OrderScreen = ({ match, history }) => {
       <Row>
         <Col md={8}>
           <ListGroup variant='flush'>
+            <ListGroup.Item>
+              <h2>Invoice</h2>
+              <Button
+                type='button'
+                className='btn btn-block'
+                onClick={() => {
+                  window.location.href = `/invoice/${order._id}`;
+                }}
+                onMouseDown={e => {
+                  e.target.style.backgroundColor = '#007bff';
+                  e.target.style.borderColor = '#007bff';
+                }}
+              >
+                View Invoice
+              </Button>
+            </ListGroup.Item>            
+
             <ListGroup.Item>
               <h2>Shipping</h2>
               <p>
