@@ -1,8 +1,46 @@
 import * as React from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Toolbar, ExcelExport, PdfExport, Page } from '@syncfusion/ej2-react-grids';
-import { productData } from './data';
 
-function DataGrid() {
+function DataGrid({order}) {
+    const orderData = order;
+    const orderItems = orderData.orderItems;
+
+    // Convert the order data to the format expected by the grid
+    let productData = [];
+    for (let i = 0; i < orderItems.length; i++) {
+        let product = {
+            'ProductName': orderItems[i].name,
+            'QuantityPerUnit': orderItems[i].qty,
+            'UnitPrice': orderItems[i].price,
+        }
+        productData.push(product);
+    }
+    
+    // Add shipping row
+    let shipping = {
+        'ProductName': 'Shipping',
+        'QuantityPerUnit': '',
+        'UnitPrice': order.shippingPrice,
+
+    }
+    productData.push(shipping);
+
+    // Add tax row
+    let tax = {
+        'ProductName': 'Tax',
+        'QuantityPerUnit': '',
+        'UnitPrice': order.taxPrice,
+    }
+    productData.push(tax);
+
+    // Add total row
+    let total = {
+        'ProductName': 'Total',
+        'QuantityPerUnit': orderItems.length,
+        'UnitPrice': order.totalPrice+order.shippingPrice+order.taxPrice,
+    }
+    productData.push(total);
+
     const month = ((new Date()).getMonth().toString()) + '/';
     const date = ((new Date()).getDate().toString()) + '/';
     const year = ((new Date()).getFullYear().toString());
@@ -180,11 +218,9 @@ function DataGrid() {
         <div>
           <GridComponent id="Grid" dataSource={productData} ref={grid => gridInstance = grid} toolbar={toolbarOptions} allowExcelExport={true} allowPdfExport={true} toolbarClick={toolbarClick.bind(this)} allowPaging={true} pageSettings={{ pageCount: 2, pageSize: 10 }}>
             <ColumnsDirective>
-              <ColumnDirective field='ProductID' headerText='Product ID' width='140'></ColumnDirective>
-              <ColumnDirective field='ProductName' headerText='Product Name' width='250'></ColumnDirective>
+              <ColumnDirective field='ProductName' headerText='Product Name' width='300'></ColumnDirective>
               <ColumnDirective field='QuantityPerUnit' headerText='Quantity Per Unit' width='200'></ColumnDirective>
               <ColumnDirective field='UnitPrice' headerText='Units Price' width='170' format='C2'></ColumnDirective>
-              <ColumnDirective field='UnitsInStock' headerText='Units In Stock' width='170'></ColumnDirective>
             </ColumnsDirective>
             <Inject services={[Toolbar, ExcelExport, PdfExport, Page]}/>
           </GridComponent>

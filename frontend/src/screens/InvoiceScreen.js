@@ -13,7 +13,6 @@ import {
 
 const InvoiceScreen = ({ match, history }) => {
   const orderId = match.params.id
-
   const dispatch = useDispatch()
 
   const orderDetails = useSelector((state) => state.orderDetails)
@@ -53,8 +52,8 @@ const InvoiceScreen = ({ match, history }) => {
     <Message variant='danger'>{error}</Message>
   ) : (
     <>
-      <h1>Order {order._id}</h1>
-      <DataGrid />
+      <h1>Order {orderId}</h1>
+      <DataGrid order={order} />
     </>
   )
 }
