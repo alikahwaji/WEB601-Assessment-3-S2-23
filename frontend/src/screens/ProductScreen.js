@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Rating from '../components/Rating'
+import SetRating from '../components/SetRating';
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
@@ -48,14 +49,17 @@ const ProductScreen = ({ history, match }) => {
   }
 
   const submitHandler = (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    console.log(rating);
     dispatch(
       createProductReview(match.params.id, {
-        rating,
+        rating: rating.toString(),
         comment,
       })
-    )
-  }
+    );
+  };
+
+  
 
   return (
     <>
@@ -150,17 +154,23 @@ const ProductScreen = ({ history, match }) => {
           </Row>
           <Row>
             <Col md={6}>
-              <h2>Reviews</h2>
+              <h2 id="review-heading">Reviews</h2>
               {product.reviews.length === 0 && <Message>No Reviews</Message>}
-              <ListGroup variant='flush'>
+              <ListGroup variant='flush' id='reviews'>
                 {product.reviews.map((review) => (
-                  <ListGroup.Item key={review._id}>
-                    <strong>{review.name}</strong>
+                  <ListGroup.Item key={review.id} class="review-box">
+                    <strong class="review-name">{review.name}</strong>
                     <Rating value={review.rating} />
                     <p>{review.createdAt.substring(0, 10)}</p>
                     <p>{review.comment}</p>
                   </ListGroup.Item>
                 ))}
+              </ListGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col md={6}>
+              <ListGroup variant='flush'>
                 <ListGroup.Item>
                   <h2>Write a Customer Review</h2>
                   {successProductReview && (
@@ -174,21 +184,11 @@ const ProductScreen = ({ history, match }) => {
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
-                      <Form.Group controlId='rating'>
-                        <Form.Label>Rating</Form.Label>
-                        <Form.Control
-                          as='select'
-                          value={rating}
-                          onChange={(e) => setRating(e.target.value)}
-                        >
-                          <option value=''>Select...</option>
-                          <option value='1'>1 - Poor</option>
-                          <option value='2'>2 - Fair</option>
-                          <option value='3'>3 - Good</option>
-                          <option value='4'>4 - Very Good</option>
-                          <option value='5'>5 - Excellent</option>
-                        </Form.Control>
-                      </Form.Group>
+                      <Form.Label>Rating</Form.Label>
+                      <SetRating
+                        value={rating}
+                        onChange={(newRating) => setRating(newRating)}
+                      />
                       <Form.Group controlId='comment'>
                         <Form.Label>Comment</Form.Label>
                         <Form.Control

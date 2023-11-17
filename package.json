@@ -1,5 +1,5 @@
 {
-  "name": "web601-fullstack",
+  "name": "web-fullstack",
   "version": "1.0.0",
   "description": "Full stack app for students",
   "main": "server.js",
